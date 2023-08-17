@@ -2,10 +2,40 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import RestaurantStyle from "@/styles/Restaurant.module.scss"
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const test = useSelector((state)=>{console.log(state)})
+  const [Restaurant, setRestaurant] = useState([
+    {
+      id:1,
+      name:"전셰프의 뷔페플러스1",
+      imageUrl:"https://i.postimg.cc/LXK1QHQV/f-Po-Z31584321311.jpg",
+      recommand:5,
+      type:"korean",
+      comment:[
+        {"id":1, "name":"테스트맨", "comment":"좋아요 전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1 "},
+        {"id":1, "name":"테스트맨", "comment":"좋아요 전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1 "}
+      ]
+    },
+    {
+      id:2,
+      name:"전셰프의 뷔페플러스1",
+      imageUrl:"https://i.postimg.cc/LXK1QHQV/f-Po-Z31584321311.jpg",
+      recommand:5,
+      type:"korean",
+      comment:[
+        {"id":1, "name":"테스트맨", "comment":"좋아요 전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1  전셰프의 뷔페플러스1 전셰프의 뷔페플러스1 "}]
+    },
+  ])
+  useEffect(()=>{
+    console.log("TEST");
+  },[]);
+
   return (
     <>
       <Head>
@@ -14,100 +44,45 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+      <main>
+        <div className={RestaurantStyle.Wrapper}>
+          {
+            Restaurant.map(({id,name,imageUrl,recommand,comment},idx) => (<ul key={idx}>
+              <li>{name}</li>
+              <li><img src={imageUrl}/></li>
+              <li>{recommand}</li>
+              <li>
+                <ul>
+                  {
+                    comment.map(({name,comment},idx)=>(
+                      <li key={idx}>
+                        <ul>
+                          <li>
+                            {name}
+                          </li>
+                          <li>
+                            {comment}
+                          </li>
+                        </ul>
+                      </li>
+                    ))
+                  }
+                  <li>
+                    <ul>
+                      <li>
+                        <input type="text" placeholder='작성자'/>
+                      </li>
+                      <li>
+                        <textarea placeholder='내용을 입력하시오'/>
+                        <button>댓글 쓰기</button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>))
+          }
+        </div>        
       </main>
     </>
   )
